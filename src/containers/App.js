@@ -14,7 +14,8 @@ class App extends Component {
     resetErrorMessage: PropTypes.func.isRequired,
     inputValue: PropTypes.string.isRequired,
     // Injected by React Router
-    children: PropTypes.node
+    children: PropTypes.node,
+    history: PropTypes.object
   }
 
   handleDismissClick = e => {

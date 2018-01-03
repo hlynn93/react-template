@@ -50,7 +50,7 @@ const paginate = ({ types, mapActionToKey }) => {
     switch (action.type) {
       case requestType:
       case successType:
-      case failureType:
+      case failureType: {
         const key = mapActionToKey(action)
         if (typeof key !== 'string') {
           throw new Error('Expected key to be a string.')
@@ -59,6 +59,7 @@ const paginate = ({ types, mapActionToKey }) => {
           ...state,
           [key]: updatePagination(state[key], action)
         }
+      }
       default:
         return state
     }
