@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { loadUser, loadStarred } from '../actions'
-import User from '../components/User'
-import Repo from '../components/Repo'
-import List from '../components/List'
+import User from '../components/common/User'
+import Repo from '../components/common/Repo'
+import List from '../components/common/List'
 import zip from 'lodash/zip'
 
 const loadData = ({ login, loadUser, loadStarred }) => {

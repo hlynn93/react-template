@@ -5,9 +5,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { loadRepo, loadStargazers } from '../actions'
-import Repo from '../components/Repo'
-import User from '../components/User'
-import List from '../components/List'
+import Repo from '../components//common/Repo'
+import User from '../components/common/User'
+import List from '../components/common/List'
 
 const loadData = props => {
   const { fullName } = props

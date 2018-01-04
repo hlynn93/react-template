@@ -4,7 +4,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import Explore from '../components/Explore'
+import Explore from '../components/app/Explore'
 import { resetErrorMessage } from '../actions'
 
 class App extends Component {
