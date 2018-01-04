@@ -1,6 +1,10 @@
-@import 'utils/variables';
-@import 'utils/mixins';
+// @import 'utils/variables';
+// @import 'utils/mixins';
 
 .User {
     background: black;
+}
+
+.body {
+    background: lighten($color: red, $amount: 20%);
 }
