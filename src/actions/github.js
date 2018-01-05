@@ -17,6 +17,8 @@ const fetchUser = login => ({
 // Fetches a single user from Github API unless it is cached.
 // Relies on Redux Thunk middleware.
 export const loadUser = (login, requiredFields = []) => (dispatch, getState) => {
+
+  // Check if a user is already cached and do nothing if true
   const user = getState().entities.users[login]
   if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
     return null
@@ -111,10 +113,3 @@ export const loadStargazers = (fullName, nextPage) => (dispatch, getState) => {
 
   return dispatch(fetchStargazers(fullName, nextPageUrl))
 }
-
-export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
-
-// Resets the currently visible error message.
-export const resetErrorMessage = () => ({
-    type: RESET_ERROR_MESSAGE
-})

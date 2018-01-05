@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import Explore from '../components/app/Explore'
-import { resetErrorMessage } from '../actions'
+import { resetErrorMessage } from '../actions/helpers'
 
 class App extends Component {
   static propTypes = {
@@ -59,7 +59,7 @@ class App extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  errorMessage: state.errorMessage,
+  errorMessage: state.error,
   inputValue: ownProps.location.pathname.substring(1)
 })
 
