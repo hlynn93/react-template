@@ -1,5 +1,4 @@
 import { normalize } from 'normalizr'
-import { User, Repo } from '../schemas'
 import { camelizeKeys } from 'humps'
 
 // Extracts the next page URL from Github API response.
@@ -54,18 +53,6 @@ const callApi = (endpoint, schema) => {
 // doesn't contain any. For example, "someuser" could result in "SomeUser"
 // leading to a frozen UI as it wouldn't find "someuser" in the entities.
 // That's why we're forcing lower cases down there.
-
-
-
-
-
-// Schemas for Github API responses.
-export const Schemas = {
-  USER: User,
-  USER_ARRAY: [User],
-  REPO: Repo,
-  REPO_ARRAY: [Repo]
-}
 
 // Action key that carries API call info interpreted by this Redux middleware.
 export const CALL_API = 'Call API'
