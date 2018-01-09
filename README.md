@@ -40,6 +40,8 @@ Your app is ready to be deployed!
 
 ### [Webpack](https://webpack.js.org/)
 
+### [Jest](https://facebook.github.io/jest/)
+
 ## Template Structure
 
 ### `config`
@@ -58,26 +60,43 @@ contains the source code and has the folder structure like so
 
 #### [actions](/src/actions)
 
-"Insert further explanation here"
+This folder contains all the redux action creators. In redux, reducers are meant to be simple and business logic belongs in action-creators.
 
 #### [components](/src/components)
 
-"Insert further explanation here"
+This folder contains all the dumb/presentational components and are concerned with **how things look**. They are encouraged to be just pure functional components that do not have states on their own but receive props parents from their respective parent smart components to receive data and callbacks for optimal performance. Learn the differences between react components [here](https://stackoverflow.com/questions/40703675/react-functional-stateless-component-purecomponent-component-what-are-the-dif).
 
 #### [containers](/src/containers)
 
-"Insert further explanation here"
+This folder contains all the smart components. Smart components are the medium between redux store and react components are concerned with **how things work**. They are the wrapper/parent components of the presentational components and there should not be any DOM markup (e.g, `<p>` or `<input />` tags) but rather a few wrapping `<div>` tags and should not have any styles either. Smart components are usually the wrapper components for each individual URL endpoints (For example, `UserPage` is for `/:username` and `RepoPage` is for `/:username/:reponame`).
 
 #### [middleware](/src/middleware)
 
-"Insert further explanation here"
+This folder contains all the custom [Redux middlewares](https://redux.js.org/docs/advanced/Middleware.html).  Redux middlewares in short provides a third-party extension point between dispatching an action, and the moment it reaches the reducer and commonly used for logging, crash reporting, communicating with asynchronous API, etc. In this template, instead of dispatching every status of an asynchronous API request (REQUEST, SUCCESS, FAILURE) in the action creators similar to this [example](https://github.com/reactjs/redux/blob/master/examples/async/src/actions/index.js), [api.js](/src/middleware/api.js) dispatches those actions for every APIs to avoid duplicate code.
 
 #### [reducers](/src/reducers)
 
-"Insert further explanation here"
+It's important to understand that your entire application really only has one single reducer function: the function that you've passed into createStore as the first argument.
+However, since redux reducers are just functions that generally update the state of the app, they can be split into different files for maintainability. Here in this template, [index.js](/src/reducers/index.js) is the `root reducer` that combines all the `slice reducers` such as [entities.js](/src/reducers/entities.js). Read more about splitting the reducers [here](https://redux.js.org/docs/recipes/reducers/SplittingReducerLogic.html).
 
 #### [store](/src/store)
 
-"Insert further explanation here"
+Store contains the files responsible for the redux initial redux store creation and the integration of middlewares into the store.
 
 #### [styles](/src/styles)
+
+This folder contains all the scss files that do not have direct relationships with the components. For example, styles for the overall individual page do not have a direct relationship with the components that make up the page and therefore, are defined in this folder. For styling of individual components, we can create a `.scss` file on the same directory level together with the respective component.
+
+## References
+
+- [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0)
+
+- [Normalizing State Shape](https://redux.js.org/docs/recipes/reducers/NormalizingStateShape.html)
+
+- [Redux Middlewares](https://redux.js.org/docs/recipes/advanced/Middleware.html)
+
+- [Testing](https://redux.js.org/docs/recipes/recipes/WritingTests.html)
+
+- [Splitting Reducer Logic](https://redux.js.org/docs/recipes/reducers/SplittingReducerLogic.html)
+
+- [Refactoring Reducers Example](https://redux.js.org/docs/recipes/reducers/RefactoringReducersExample.html)
