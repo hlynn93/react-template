@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions/helpers'
+import * as ActionTypes from '../constants/actionTypes'
 
 // Updates error message to notify about the failed fetches.
 export default (state = null, action) => {

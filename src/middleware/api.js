@@ -1,17 +1,27 @@
 import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
+import { isEmpty } from 'lodash';
 
 const API_ROOT = 'https://api.github.com/'
 
+// Uncomment this to test POST request
+// const API_ROOT = 'https://postman-echo.com/'
+
 // Fetches an API response and normalizes the result JSON according to schema.
 // This makes every API response have the same shape, regardless of how nested it was.
-const callApi = (endpoint, schema) => {
+const callApi = (endpoint, schema, meta = {}) => {
+
+  if(!isEmpty(meta)) {
+
+    // modify meta data here
+    meta.body = JSON.stringify(meta.body)
+  }
+
   const fullUrl = (endpoint.indexOf(API_ROOT) === -1) ? API_ROOT + endpoint : endpoint
 
-  return fetch(fullUrl)
+  return fetch(fullUrl, meta)
     .then(response =>
       response.json().then(json => {
-
         // Check for HTTP request errors
         if (response.status < 200 || response.status > 226) {
           return Promise.reject(json)
@@ -52,7 +62,7 @@ export default store => next => action => {
   }
 
   let { endpoint } = callAPI
-  const { schema, types } = callAPI
+  const { schema, types, meta } = callAPI
 
   if (typeof endpoint === 'function') {
     endpoint = endpoint(store.getState())
@@ -80,7 +90,7 @@ export default store => next => action => {
   const [ requestType, successType, failureType ] = types
   next(actionWith({ type: requestType }))
 
-  return callApi(endpoint, schema).then(
+  return callApi(endpoint, schema, meta).then(
     response => next(actionWith({
       response,
       type: successType

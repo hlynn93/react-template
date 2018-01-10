@@ -83,5 +83,13 @@ export default combineReducers({
       ActionTypes.STARGAZERS_SUCCESS,
       ActionTypes.STARGAZERS_FAILURE
     ]
+  }),
+  forms: paginate({
+    mapActionToKey: action => action.username,
+    types: [
+      ActionTypes.SEND_FORM_REQUEST,
+      ActionTypes.SEND_FORM_SUCCESS,
+      ActionTypes.SEND_FORM_FAILURE
+    ]
   })
 })

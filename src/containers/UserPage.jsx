@@ -4,15 +4,18 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { loadUser, loadStarred } from '../actions/github'
+import { loadUser, loadStarred, sendForm } from '../actions/github'
 import User from '../components/common/User'
 import Repo from '../components/common/Repo'
 import List from '../components/common/List'
 import zip from 'lodash/zip'
 
-const loadData = ({ login, loadUser, loadStarred }) => {
+const loadData = ({ login, loadUser, loadStarred, sendForm }) => { // eslint-disable-line no-unused-vars
   loadUser(login, [ 'name' ])
   loadStarred(login)
+
+  // Comment out loadUser & loadStarred and uncomment the line below to test POST request
+  // sendForm(login, "123123") // (username, password)
 }
 
 class UserPage extends Component {
@@ -23,7 +26,8 @@ class UserPage extends Component {
     starredRepos: PropTypes.array.isRequired,
     starredRepoOwners: PropTypes.array.isRequired,
     loadUser: PropTypes.func.isRequired,
-    loadStarred: PropTypes.func.isRequired
+    loadStarred: PropTypes.func.isRequired,
+    sendForm: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -95,5 +99,6 @@ const mapStateToProps = (state, ownProps) => {
 
 export default withRouter(connect(mapStateToProps, {
   loadUser,
-  loadStarred
+  loadStarred,
+  sendForm
 })(UserPage))

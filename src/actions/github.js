@@ -8,7 +8,7 @@ import * as GitHubAPI from '../apis/github'
 const fetchUser = login => ({
   [CALL_API]: {
     types: [ ActionTypes.USER_REQUEST, ActionTypes.USER_SUCCESS, ActionTypes.USER_FAILURE ],
-    endpoint: GitHubAPI.fetchUser(login),
+    ...GitHubAPI.fetchUser(login),
     schema: Schemas.USER
   }
 })
@@ -31,7 +31,7 @@ export const loadUser = (login, requiredFields = []) => (dispatch, getState) => 
 const fetchRepo = fullName => ({
   [CALL_API]: {
     types: [ ActionTypes.REPO_REQUEST, ActionTypes.REPO_SUCCESS, ActionTypes.REPO_FAILURE ],
-    endpoint: GitHubAPI.fetchRepo(fullName),
+    ...GitHubAPI.fetchRepo(fullName),
     schema: Schemas.REPO
   }
 })
@@ -53,7 +53,7 @@ const fetchStarred = (login) => ({
   login,
   [CALL_API]: {
     types: [ ActionTypes.STARRED_REQUEST, ActionTypes.STARRED_SUCCESS, ActionTypes.STARRED_FAILURE ],
-    endpoint: GitHubAPI.fetchStarred(login),
+    ...GitHubAPI.fetchStarred(login),
     schema: Schemas.REPO_ARRAY
   }
 })
@@ -71,7 +71,7 @@ const fetchStargazers = (fullName) => ({
   fullName,
   [CALL_API]: {
     types: [ ActionTypes.STARGAZERS_REQUEST, ActionTypes.STARGAZERS_SUCCESS, ActionTypes.STARGAZERS_FAILURE ],
-    endpoint: GitHubAPI.fetchStargazers(fullName),
+    ...GitHubAPI.fetchStargazers(fullName),
     schema: Schemas.USER_ARRAY
   }
 })
@@ -81,4 +81,16 @@ const fetchStargazers = (fullName) => ({
 // Relies on Redux Thunk middleware.
 export const loadStargazers = (fullName) => (dispatch) => {
   return dispatch(fetchStargazers(fullName))
+}
+
+// This is just to test sending POST request to POSTMAN-ECHO
+export const sendForm = (username, password) => (dispatch) => {
+  return dispatch({
+    username,
+    [CALL_API]: {
+      types: [ ActionTypes.SEND_FORM_REQUEST, ActionTypes.SEND_FORM_SUCCESS, ActionTypes.SEND_FORM_FAILURE ],
+      ...GitHubAPI.sendForm(username, password),
+      schema: Schemas.FORM
+    }
+  })
 }
