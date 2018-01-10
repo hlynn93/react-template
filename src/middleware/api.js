@@ -1,21 +1,6 @@
 import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 
-// Extracts the next page URL from Github API response.
-const getNextPageUrl = response => {
-  const link = response.headers.get('link')
-  if (!link) {
-    return null
-  }
-
-  const nextLink = link.split(',').find(s => s.indexOf('rel="next"') > -1)
-  if (!nextLink) {
-    return null
-  }
-
-  return nextLink.split(';')[0].slice(1, -1)
-}
-
 const API_ROOT = 'https://api.github.com/'
 
 // Fetches an API response and normalizes the result JSON according to schema.
@@ -26,16 +11,17 @@ const callApi = (endpoint, schema) => {
   return fetch(fullUrl)
     .then(response =>
       response.json().then(json => {
-        if (!response.ok) {
+
+        // Check for HTTP request errors
+        if (response.status < 200 || response.status > 226) {
           return Promise.reject(json)
         }
 
+        // Camelization (For example; `home_url` = `homeUrl`)
         const camelizedJson = camelizeKeys(json)
-        const nextPageUrl = getNextPageUrl(response)
 
         return Object.assign({},
           normalize(camelizedJson, schema),
-          { nextPageUrl }
         )
       })
     )

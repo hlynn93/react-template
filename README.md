@@ -64,7 +64,7 @@ This folder contains all the redux action creators. In redux, reducers are meant
 
 #### [components](/src/components)
 
-This folder contains all the dumb/presentational components and are concerned with **how things look**. They are encouraged to be just pure functional components that do not have states on their own but receive props parents from their respective parent smart components to receive data and callbacks for optimal performance. Learn the differences between react components [here](https://stackoverflow.com/questions/40703675/react-functional-stateless-component-purecomponent-component-what-are-the-dif).
+This folder contains all the dumb/presentational components and are concerned with **how things look**. They are encouraged to be just pure functional components that do not have states on their own but receive props parents from their respective parent smart components to receive data and callbacks for optimal performance. Learn the differences between react components [here](https://stackoverflow.com/questions/40703675/react-functional-stateless-component-purecomponent-component-what-are-the-dif). If you wanna know why stateless functional components or Pure components are better presentational components, read [here](https://hackernoon.com/react-stateless-functional-components-nine-wins-you-might-have-overlooked-997b0d933dbc) and [here](https://medium.com/@gajus/this-is-misleading-f1de2b4a06ca).
 
 #### [containers](/src/containers)
 
@@ -86,6 +86,10 @@ Store contains the files responsible for the redux initial redux store creation 
 #### [styles](/src/styles)
 
 This folder contains all the scss files that do not have direct relationships with the components. For example, styles for the overall individual page do not have a direct relationship with the components that make up the page and therefore, are defined in this folder. For styling of individual components, we can create a `.scss` file on the same directory level together with the respective component.
+
+## Extras
+
+For large scale production app, [sound-redux](https://github.com/andrewngu/sound-redux) is a well-known open source react project.
 
 ## References
 
