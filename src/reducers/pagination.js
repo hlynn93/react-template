@@ -1,6 +1,6 @@
 import union from 'lodash/union'
 import { combineReducers } from 'redux'
-import * as ActionTypes from '../actions/github'
+import * as ActionTypes from '../constants/actionTypes'
 
 // Creates a reducer managing pagination, given the action types to handle,
 // and a function telling how to extract the key from an action.
@@ -42,8 +42,6 @@ const paginate = ({ types, mapActionToKey }) => {
         return state
     }
   }
-
-
 
   return (state = {}, action) => {
 
