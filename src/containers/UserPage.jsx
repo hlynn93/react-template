@@ -9,6 +9,7 @@ import User from '../components/common/User'
 import Repo from '../components/common/Repo'
 import List from '../components/common/List'
 import zip from 'lodash/zip'
+import i18n from '../utils/i18n';
 
 const loadData = ({ login, loadUser, loadStarred, sendForm }) => { // eslint-disable-line no-unused-vars
   loadUser(login, [ 'name' ])
@@ -53,7 +54,7 @@ class UserPage extends Component {
   render() {
     const { user, login } = this.props
     if (!user) {
-      return <h1><i>Loading {login}{"'s profile..."}</i></h1>
+      return <h1><i>{i18n.t('USER.LOADING_PROFILE', { login })}</i></h1>
     }
 
     const { starredRepos, starredRepoOwners, repoIds, isFetching } = this.props
@@ -63,7 +64,7 @@ class UserPage extends Component {
         <hr />
         <List renderItem={this.renderRepo}
               items={zip(starredRepos, starredRepoOwners)}
-              loadingLabel={`Loading ${login}'s starred...`}
+              loadingLabel={i18n.t('USER.LOADING_STARRED', { login })}
               {...repoIds}
               isFetching={isFetching}
               />

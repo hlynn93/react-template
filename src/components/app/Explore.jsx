@@ -3,6 +3,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import i18n from '../../utils/i18n';
+
 const GITHUB_REPO = 'https://github.com/reactjs/redux'
 
 export default class Explore extends Component {
@@ -41,19 +43,19 @@ export default class Explore extends Component {
   render() {
     return (
       <div>
-        <p>Type a username or repo full name and hit &apos;Go&apos;</p>
+        <p>{i18n.t("EXPLORE.TYPE_USERNAME")}</p>
         <input size="45"
                ref={(input) => this.input = input}
                defaultValue={this.props.value}
                onKeyUp={this.handleKeyUp} />
         <button onClick={this.handleGoClick}>
-          Go!
+          {i18n.t("EXPLORE.GO")}
         </button>
         <p>
-          Code on <a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer">Github</a>.
+          {i18n.t("EXPLORE.CODE_ON")} <a href={GITHUB_REPO} target="_blank" rel="noopener noreferrer">{i18n.t("COMMON.GITHUB")}</a>.
         </p>
         <p>
-          Move the DevTools with Ctrl+W or hide them with Ctrl+H.
+          {i18n.t('EXPLORE.MOVE_DEVTOOLS')}
         </p>
       </div>
     )

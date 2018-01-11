@@ -3,6 +3,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
+import i18n from '../../utils/i18n';
+
 export default class List extends Component {
   static propTypes = {
     loadingLabel: PropTypes.string.isRequired,
@@ -13,7 +15,7 @@ export default class List extends Component {
 
   static defaultProps = {
     isFetching: true,
-    loadingLabel: 'Loading...'
+    loadingLabel: i18n.t("COMMON.LOADING")
   }
 
   render() {
@@ -28,7 +30,7 @@ export default class List extends Component {
     }
 
     if (isEmpty) {
-      return <h1><i>Nothing here!</i></h1>
+      return <h1><i>{i18n.t("COMMON.NOTHING_HERE")}</i></h1>
     }
 
     return (
