@@ -1,3 +1,9 @@
+/**
+ * To avoid dispatching duplicated actions across asynchrnous APIs,
+ * this middleware checks the action and if the action involves handling ssync API calls,
+ * it dispatches the actions { API_REQUEST, API_SUCCESS, API_FAILURE } to handle the situation accordingly
+ */
+
 import { normalize } from 'normalizr'
 import { camelizeKeys } from 'humps'
 import { isEmpty } from 'lodash';
@@ -58,7 +64,7 @@ export const CALL_API = 'Call API'
 export default store => next => action => {
   const callAPI = action[CALL_API]
   if (typeof callAPI === 'undefined') {
-    return next(action)
+    return next(action) // next = dispatch
   }
 
   let { endpoint } = callAPI

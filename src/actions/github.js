@@ -1,3 +1,7 @@
+/**
+ *  This file contains all the GitHub related actions
+ */
+
 import { CALL_API } from '../middleware/api'
 import { Schemas } from '../schemas'
 import * as ActionTypes from '../constants/actionTypes'
@@ -59,7 +63,6 @@ const fetchStarred = (login) => ({
 })
 
 // Fetches a page of starred repos by a particular user.
-// Bails out if page is cached.
 // Relies on Redux Thunk middleware.
 export const loadStarred = (login) => (dispatch) => {
   return dispatch(fetchStarred(login))
@@ -77,13 +80,12 @@ const fetchStargazers = (fullName) => ({
 })
 
 // Fetches a page of stargazers for a particular repo.
-// Bails out if page is cached
 // Relies on Redux Thunk middleware.
 export const loadStargazers = (fullName) => (dispatch) => {
   return dispatch(fetchStargazers(fullName))
 }
 
-// This is just to test sending POST request to POSTMAN-ECHO
+// This is just to test function that describe the format of sending POST request
 export const sendForm = (username, password) => (dispatch) => {
   return dispatch({
     username,

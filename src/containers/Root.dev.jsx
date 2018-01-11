@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Provider } from 'react-redux'
-import DevTools from './DevTools'
+
+import DevTools from './DevTools'   // Redux DevTools, you can use this for better redux trouble shooting experience
 import { Route } from 'react-router-dom'
 import App from './App'
 import UserPage from './UserPage'

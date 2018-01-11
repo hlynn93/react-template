@@ -40,10 +40,6 @@ class UserPage extends Component {
     }
   }
 
-  handleLoadMoreClick = () => {
-    this.props.loadStarred(this.props.login, true)
-  }
-
   renderRepo([ repo, owner ]) {
     return (
       <Repo
@@ -66,7 +62,6 @@ class UserPage extends Component {
         <hr />
         <List renderItem={this.renderRepo}
               items={zip(starredRepos, starredRepoOwners)}
-              onLoadMoreClick={this.handleLoadMoreClick}
               loadingLabel={`Loading ${login}'s starred...`}
               {...starredPagination} />
       </div>

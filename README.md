@@ -1,6 +1,6 @@
-# Redux Template (Work in Progress)
+# React-Redux Template (Work in Progress)
 
-This template is extended from [redux-realworld example](https://github.com/reactjs/redux/tree/master/examples/real-world) which is built with [Create React App](https://github.com/facebookincubator/create-react-app), which provides a simple way to start React projects with no build configuration needed.
+This template is extended from [redux-realworld example](https://github.com/reactjs/redux/tree/master/examples/real-world) which is built with [Create React App](https://github.com/facebookincubator/create-react-app), and has been extended to support jest, eslint, scss and different asyncchronous API method types. Flow integration is a KIV.
 
 Projects built with Create-React-App include support for ES6 syntax, as well as several unofficial / not-yet-final forms of Javascript syntax such as Class Properties and JSX.  See the list of [language features and polyfills supported by Create-React-App](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#supported-language-features-and-polyfills) for more information.
 

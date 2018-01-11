@@ -45,6 +45,8 @@ class App extends Component {
   }
 
   render() {
+
+    // Chilren, in this case comes from React Router components (See Root.dev.jsx or Root.prod.jsx)
     const { children, inputValue } = this.props
     return (
       <div>

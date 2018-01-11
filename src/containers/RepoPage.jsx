@@ -1,5 +1,3 @@
-/* eslint-disable no-undef */
-
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
@@ -37,10 +35,6 @@ class RepoPage extends Component {
     }
   }
 
-  handleLoadMoreClick = () => {
-    this.props.loadStargazers(this.props.fullName, true)
-  }
-
   renderUser(user) {
     return <User user={user} key={user.login} />
   }
@@ -59,7 +53,6 @@ class RepoPage extends Component {
         <hr />
         <List renderItem={this.renderUser}
               items={stargazers}
-              onLoadMoreClick={this.handleLoadMoreClick}
               loadingLabel={`Loading stargazers of ${name}...`}
               {...stargazersPagination} />
       </div>

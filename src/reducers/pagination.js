@@ -1,3 +1,7 @@
+/**
+ * This contains all the array objects of IDs for convenience iterations
+ * each ID can be accessed via the entities reducer
+ */
 import union from 'lodash/union'
 import { combineReducers } from 'redux'
 import * as ActionTypes from '../constants/actionTypes'

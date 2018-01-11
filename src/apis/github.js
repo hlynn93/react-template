@@ -1,3 +1,7 @@
+/**
+ * This file contains all the GitHub related APIs and
+ */
+
 export const fetchUser = login => ({ endpoint: `users/${login}` })
 
 export const fetchRepo = fullName => ({ endpoint: `repos/${fullName}` })
@@ -11,8 +15,7 @@ export const sendForm = (username, password) => ({
   meta: {
     body: { username, password },
     method: 'post',
-    mode: 'no-cors',
-    isPostmanTest: true
+    mode: 'no-cors', // only use this if the server does not support CORS headers, otherwise, remove this line
   }
 })
 

@@ -1,3 +1,7 @@
+/**
+ * An example unit test case
+ */
+
 import { resetErrorMessage } from './helpers';
 import { RESET_ERROR_MESSAGE } from './constants/actionTypes';
 
