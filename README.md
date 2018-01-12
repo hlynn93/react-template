@@ -87,6 +87,150 @@ Store contains the files responsible for the redux initial redux store creation 
 
 This folder contains all the scss files that do not have direct relationships with the components. For example, styles for the overall individual page do not have a direct relationship with the components that make up the page and therefore, are defined in this folder. For styling of individual components, we can create a `.scss` file on the same directory level together with the respective component.
 
+## Workflow example
+
+### Scanario 1 (Fetching the displaying user data)
+
+#### Create fetchUser API
+
+Create a function called `fetchUser` in [github.js](/src/apis/github.js) and configure and returns the neccessary parameters, `endpoint` and `meta`. In this example, the `endpoint` will be `users/:login` and we can ignore the `meta` attribute since it's only a normal `GET` request. So we can do like so.
+
+``` javascript
+// apis/github.js
+
+export const fetchUser = login => ({ endpoint: `users/${login}` })
+```
+
+#### Create a schema for the response data
+
+For better data management, we need to create a schema model for the objects returned from the API response. The template uses [normalizr](https://github.com/paularmstrong/normalizr) and you can learn more about how to normalize data and how normalizing data helps to scale in redux state management. Here in this example, since the return data is a `User` object and the ID will be its login(username). Therefore, we can create a schema like so in [User.js](/src/schemas/User.js)
+
+``` javascript
+// schemas/User.js
+
+export default new schema.Entity('users', {}, {
+  idAttribute: user => user.login.toLowerCase()
+})
+```
+
+[index.js](/src/schemas/index.js) serves as an interface that combines all the `schemas` into one, so that all the file that requires to import schemas can import like `import { User } from '<path>/schemas/` without needing to import schemas from individual schema file. So, we need to include the new schema there and export the schema in that [index.js](/src/schemas/index.js).
+
+``` javascript
+
+// schemas/index.js
+
+import User from './User'
+
+export const Schemas = {
+  USER: User,
+  USER_ARRAY: [User], // An array of user objects
+  ...otherSchemas
+}
+```
+
+#### Create an action
+
+Create function called `loadUser` in this example and checks whether the user has already been loaded in the `redux store`. If the user has never been loaded before, dispatch `fetchUser action` to call the `fetchUser API` mentioned above. It can be done like so,
+
+``` javascript
+// actions/github.js
+
+const fetchUser = login => ({
+  // Extra attributes can be passed along here (See fetchStargazers action for example)
+  [CALL_API]: {
+    types: [ ActionTypes.USER_REQUEST, ActionTypes.USER_SUCCESS, ActionTypes.USER_FAILURE ], // actions to indicate the status of the API call
+    ...GitHubAPI.fetchUser(login), // contains endpoint and meta attributes
+    schema: Schemas.USER // Schemas for the response data
+  }
+})
+
+export const loadUser = (login, requiredFields = []) => (dispatch, getState) => {
+
+  // Check if a user is already cached and do nothing if true
+  const user = getState().entities.users[login]
+  if (user && requiredFields.every(key => user.hasOwnProperty(key))) {
+    return null
+  }
+
+  return dispatch(fetchUser(login))
+}
+```
+
+do remember to declare the neccessary action constant values in [actionTypes](/src/constants/actionTypes.js)
+
+#### Create a reducer
+
+[entities.js](/src/reducers/entities.js) is to store all the data objects by their IDs and
+[pagination.js](/src/reducers/pagination.js) is to store the array of IDs of those data objects so that we can iterate easily and display as a list where neccessary. We do not have to do anything in `entities.js` since it simply merges all the newly received entities into the redux store. We do not have to do anything in the `pagination.js` either since there is no list involved in the response data.
+
+**for the case of `fetchStarred`, since it returns a list of `Repos`, we need to provide a key to form an array that is linked to the specific account that starred repos are related to like so
+
+``` javascript
+  starredByUser: paginate({
+    // login will the id that links to the array of starred repos by that logged in user.
+    mapActionToKey: action => action.login,
+    types: [
+      ActionTypes.STARRED_REQUEST,
+      ActionTypes.STARRED_SUCCESS,
+      ActionTypes.STARRED_FAILURE
+    ]
+  })
+```
+
+#### Connect redux to react via a container
+
+[UserPage](/src/containers/UserPage) is the container and it gets the login value from the URL (Redux-router) and load the data based on its value. The simplest form of UserPage would be like this
+
+``` javascript
+import User from '../components/common/User'
+
+class UserPage extends Component {
+  static propTypes = {
+      login: PropTypes.string.isRequired,
+      user: PropTypes.object,
+      loadUser: PropTypes.func.isRequired,
+    }
+  }
+
+  componentWillMount() {
+    loadUser(this.props.login, ['name'])
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.login !== this.props.login) {
+      loadData(nextProps)
+    }
+  }
+  render() {
+    const { user, login } = this.props
+
+    if (!user) {
+      return <h1><i>Loading {login}{"'s profile..."}</i></h1>
+    }
+
+    return (
+      <User user={user} />
+    )
+  }
+}
+
+// map redux state to the component's prop
+const mapStateToProps = (state, ownProps) => {
+  const login = ownProps.match.params.login.toLowerCase()
+  const { entities: { users } } = state
+  return { login, user: users[login] }
+}
+
+// withRouter to connect with redux-router
+export default withRouter(connect(mapStateToProps, {
+  loadUser
+})(UserPage))
+```
+
+#### Create components
+
+Create stateless components to display the data. See [User.js](components/common/User.js) for how to write components. Recommended not to have any states
+
 ## Extras
 
 For large scale production app, [sound-redux](https://github.com/andrewngu/sound-redux) is a well-known open source react project.
