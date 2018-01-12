@@ -89,7 +89,7 @@ This folder contains all the scss files that do not have direct relationships wi
 
 ## Workflow example
 
-### Scanario 1 (Fetching the displaying user data)
+### Scanario 1 (Fetching and displaying user data)
 
 #### Create fetchUser API
 
@@ -230,6 +230,12 @@ export default withRouter(connect(mapStateToProps, {
 #### Create components
 
 Create stateless components to display the data. See [User.js](components/common/User.js) for how to write components. Recommended not to have any states
+
+#### Styling components
+
+You can style the components by creating a scss file on the same level as the component and import the stylesheet file from the component.
+For basic tutorial of SCSS can be found [here](https://scotch.io/tutorials/getting-started-with-sass)
+
 
 ## Extras
 
