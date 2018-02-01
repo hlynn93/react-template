@@ -1,6 +1,6 @@
 import * as ActionTypes from '../constants/actionTypes'
 
-// Updates error message to notify about the failed fetches.
+// System wide updates error message to notify about the failed fetches.
 export default (state = null, action) => {
     const { type, error } = action
 
