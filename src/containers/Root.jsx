@@ -1,12 +1,21 @@
-/**
- * Split Root.jsx into Root.dev.jsx Root.prod.jsx so that
- * we can specifically define what routes or components will be used in each environemnt
- *
- * NOTE: if a component (such as UserPage) belongs to both dev and prod environment,
- * remember to put the component in both Root.dev.jsx and Root.prod.jsx
- */
-if (process.env.NODE_ENV === 'production') {
-  module.exports = require('./Root.prod')
-} else {
-  module.exports = require('./Root.dev')
+import React from 'react'
+import PropTypes from 'prop-types'
+import { Provider } from 'react-redux'
+import { Route } from 'react-router-dom'
+import App from './App'
+import UserPage from './UserPage'
+
+const Root = ({ store }) => (
+  <Provider store={store}>
+    <div>
+      <Route path="/" component={App} />
+      <Route path="/:login"
+             component={UserPage} />
+    </div>
+  </Provider>
+)
+
+Root.propTypes = {
+  store: PropTypes.object.isRequired,
 }
+export default Root
