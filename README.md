@@ -236,10 +236,11 @@ Create stateless components to display the data. See [User.js](components/common
 You can style the components by creating a scss file on the same level as the component and import the stylesheet file from the component.
 For basic tutorial of SCSS can be found [here](https://scotch.io/tutorials/getting-started-with-sass)
 
-
 ## Extras
 
 For large scale production app, [sound-redux](https://github.com/andrewngu/sound-redux) is a well-known open source react project.
+
+For JS project guidelines, read [here](https://github.com/wearehive/project-guidelines)
 
 ## References
 
